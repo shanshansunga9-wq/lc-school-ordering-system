@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Digital Menu Ordering</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-image: url("halaman.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.school-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+h1 {
+  margin: 0;
+  color: white;
+}
+
+button {
+  padding: 6px 12px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #218838;
+}
+
+.menu, .cart, .history {
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  background-color: lightcyan;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.menu-item img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.price-add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.history-item {
+  border-bottom: 1px solid gray;
+  padding: 5px 0;
+  font-size: 14px;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 350px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+#welcomeText {
+  font-weight: bold;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="logo.png" class="school-logo">
+    <h1>Digital Menu Ordering</h1>
+  </div>
+  <div>
+    <span id="welcomeText"></span>
+    <button onclick="openLogin()">Sign In</button>
+  </div>
+</header>
+
+<div class="menu">
+<h2>Menu</h2>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="burger.jpg">
+    <span>Burger</span>
+  </div>
+  <div class="price-add">
+    <span>₱25</span>
+    <button onclick="addToCart('Burger',25)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="hotdog.jpeg">
+    <span>Hotdog</span>
+  </div>
+  <div class="price-add">
+    <span>₱25</span>
+    <button onclick="addToCart('Hotdog',25)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="cheesestick.jpeg">
+    <span>Cheese stick ₱5 for 3 pieces</span>
+  </div>
+  <div class="price-add">
+    <span>₱5</span>
+    <button onclick="addToCart('Cheese stick ₱5 for 3pieces ',5)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="Coke.jpeg">
+    <span>Coke Mismo, pero 'di ka miss</span>
+  </div>
+  <div class="price-add">
+    <span>₱25</span>
+    <button onclick="addToCart('Coke',25)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="Water.jpeg">
+    <span>Water, kasing lamig ng reply nya sa'yo </span>
+  </div>
+  <div class="price-add">
+    <span>₱10</span>
+    <button onclick="addToCart('Water',25)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="Spaghetti.jpeg">
+    <span>Spaghetii </span>
+  </div>
+  <div class="price-add">
+    <span>₱35</span>
+    <button onclick="addToCart('Spaghetti',35)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="carbonara.jpeg">
+    <span>Carbonara</span>
+  </div>
+  <div class="price-add">
+    <span>₱35</span>
+    <button onclick="addToCart('Carbonara',35)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="Oishispicyseafood.jpeg">
+    <span>Oishi Spicy Seafood Curls</span>
+  </div>
+  <div class="price-add">
+    <span>₱10</span>
+    <button onclick="addToCart('Oishi Spicy Seafood Curls',10)">Add</button>
+  </div>
+</div>
+
+<div class="menu-item">
+  <div class="item-info">
+    <img src="chippy.jpeg">
+    <span>JACKnJILL Chippy</span>
+  </div>
+  <div class="price-add">
+    <span>₱10</span>
+    <button onclick="addToCart('JACKnJILL Chippy',10)">Add</button>
+  </div>
+</div>
+
+<button onclick="openPayment()" style="margin-top:10px; background:#007bff;">
+Checkout
+</button>
+</div>
+
+<div class="cart">
+<h2>🛒 Current Order</h2>
+<div id="cartItems"></div>
+<div class="total" id="totalPrice">Total: ₱0</div>
+</div>
+
+<div class="history">
+<h2>📜 Order History</h2>
+<div id="orderHistory"></div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h3>Sign In</h3>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <button onclick="closeLogin()" style="background:red;">Close</button>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal" id="paymentModal">
+  <div class="modal-content">
+    <h3>Select Payment Method</h3>
+    <select id="paymentMethod" onchange="toggleGcash()">
+      <option value="Cash">Cash</option>
+      <option value="GCash">GCash</option>
+    </select>
+
+    <div id="gcashSection" style="display:none;">
+      <input type="text" id="gcashNumber" placeholder="Enter GCash Number">
+    </div>
+
+    <button onclick="processPayment()">Pay Now</button>
+  </div>
+</div>
+
+<!-- RECEIPT MODAL -->
+<div class="modal" id="receiptModal">
+  <div class="modal-content">
+    <img src="logo.png" style="width:50px; display:block; margin:auto;">
+    <h3 style="text-align:center;">School Canteen Receipt</h3>
+    <p id="orderNumber"></p>
+    <p id="receiptDate"></p>
+    <p id="receiptPayment"></p>
+    <div id="receiptDetails"></div>
+    <p id="receiptTotal" style="font-weight:bold;"></p>
+    <button onclick="closeReceipt()">Close</button>
+  </div>
+</div>
+
+<script>
+let cart = {};
+let total = 0;
+let isLoggedIn = false;
+let orderCounter = 1000;
+
+function addToCart(item, price) {
+  if (!isLoggedIn) {
+    alert("Please sign in first!");
+    return;
+  }
+
+  if (cart[item]) cart[item].quantity++;
+  else cart[item] = { price, quantity: 1 };
+
+  total += price;
+  updateCart();
+}
+
+function updateCart() {
+  const cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+
+  for (let item in cart) {
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <span>${item} x ${cart[item].quantity}</span>
+        <span>₱${cart[item].price * cart[item].quantity}</span>
+      </div>`;
+  }
+
+  document.getElementById("totalPrice").innerText = "Total: ₱" + total;
+}
+
+function openPayment() {
+  if (!isLoggedIn) return alert("Please sign in first!");
+  if (Object.keys(cart).length === 0) return alert("Cart is empty!");
+  document.getElementById("paymentModal").style.display = "flex";
+}
+
+function toggleGcash() {
+  const method = document.getElementById("paymentMethod").value;
+  document.getElementById("gcashSection").style.display =
+    method === "GCash" ? "block" : "none";
+}
+
+function processPayment() {
+  const method = document.getElementById("paymentMethod").value;
+
+  if (method === "GCash") {
+    const number = document.getElementById("gcashNumber").value;
+    if (!number) return alert("Enter GCash number!");
+    alert("Processing GCash Payment...");
+  }
+
+  completeOrder(method);
+}
+
+function completeOrder(method) {
+  orderCounter++;
+  const orderNo = "ORD-" + orderCounter;
+  const now = new Date();
+
+  document.getElementById("orderNumber").innerText = "Order: " + orderNo;
+  document.getElementById("receiptDate").innerText =
+    "Date: " + now.toLocaleString();
+  document.getElementById("receiptPayment").innerText =
+    "Payment Method: " + method;
+
+  const receiptDetails = document.getElementById("receiptDetails");
+  receiptDetails.innerHTML = "";
+
+  for (let item in cart) {
+    receiptDetails.innerHTML += `
+      <div style="display:flex; justify-content:space-between;">
+        <span>${item} x ${cart[item].quantity}</span>
+        <span>₱${cart[item].price * cart[item].quantity}</span>
+      </div>`;
+  }
+
+  document.getElementById("receiptTotal").innerText =
+    "Total: ₱" + total;
+
+  document.getElementById("orderHistory").innerHTML += `
+    <div class="history-item">
+      ${orderNo} - ₱${total} - ${method} - ${now.toLocaleString()}
+    </div>`;
+
+  document.getElementById("paymentModal").style.display = "none";
+  document.getElementById("receiptModal").style.display = "flex";
+
+  cart = {};
+  total = 0;
+  updateCart();
+}
+
+function closeReceipt() {
+  document.getElementById("receiptModal").style.display = "none";
+}
+
+function openLogin() {
+  document.getElementById("loginModal").style.display = "flex";
+}
+
+function closeLogin() {
+  document.getElementById("loginModal").style.display = "none";
+}
+
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  
+  if (user && pass) {
+    isLoggedIn = true;
+    document.getElementById("welcomeText").innerText = "Welcome, " + user;
+    document.getElementById("loginModal").style.display = "none";
+  } else {
+    alert("Please enter username and password!");
+  }
+}
+
+</script>
+
+</body>
+</html>
